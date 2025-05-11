@@ -31,12 +31,15 @@ body::before {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
+  background-color: #000;
+  color: #fff;
 }
 
 .service-table th, .service-table td {
   border-left: 1px solid #d1d5db;
   border-bottom: 1px solid #d1d5db;
   padding: 12px 15px;
+      background-color: #222;
 }
 
 .service-table th:first-child, .service-table td:first-child {
