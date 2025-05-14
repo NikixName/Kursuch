@@ -95,7 +95,6 @@ body::before {
   line-height: 1.5;
 }
 .down{
-
     background: #ff9100;
     color: #f3f3f3;
     font-family: Arial, sans-serif;
@@ -116,4 +115,49 @@ body::before {
   color: #ddd;
   bottom: 300px;
   left: 480px;
+}
+#servicetext{
+  position:relative;
+  bottom: 250px;
+}
+.btntable{
+  position: absolute;
+  bottom: 150px;
+  right: 500px;
+  background-color: #ffd500;
+  color: #000000;
+  padding: 10px 200px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+#registrationtext{
+  font-size: 16px;
+  text-align: justify;
+  position: relative;
+  padding-left: 0px;
+  padding-right: 220px;
+  margin-top: 10px;
+  line-height: 1.5;
+  color: #ddd;
+}
+#signinbottom{
+  font-size: 13px;
+  position: absolute;
+  left: 670px;
+  bottom: 350px;
+  background-color: #ffd500;
+  color: #000000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
