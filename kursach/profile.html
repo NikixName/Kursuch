@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="face.css">
+  <title>Профиль клиента - Clean Masters</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#FFD700",
+            secondary: "#000000",
+            accent: "#FFA500"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-black min-h-screen text-white">
+  <div class="container mx-auto px-4 py-8 max-w-4xl">
+    <!-- Header -->
+    <header class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-4">
+        <div class="avatar-upload">
+          <div class="avatar-preview" id="avatarPreview" style="background-image: url('https://picsum.photos/200/200?random=1')">
+            <div class="upload-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+              </svg>
+            </div>
+          </div>
+          <input id="avatarInput" type="file" accept="image/*" class="hidden">
+        </div>
+        <div>
+        <h2 class="text-yellow-500 text-xl font-bold">Иван Иванов</h2>
+        <p class="text-gray-400">Клиент</p>
+        </div>
+      </div>
+      <div class="text-right">
+        <h1 class="text-yellow-500 font-bold text-xl">Clean Masters</h1>
+        <p class="text-gray-400 text-sm">Автомастерская</p>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="bg-gray-900 rounded-lg p-6 shadow-lg">
+      <!-- Customer Info -->
+      <div class="mb-8">
+        <h2 class="text-yellow-500 text-xl font-bold mb-4">Информация о клиенте</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <p class="text-gray-400">Телефон:</p>
+            <p class="text-white font-medium">+375 33-393-06-80</p>
+          </div>
+          <div>
+            <p class="text-gray-400">Email:</p>
+            <p class="text-white font-medium">ivan.ivanov@example.com</p>
+          </div>
+          <div>
+            <p class="text-gray-400">Автомобиль:</p>
+            <p class="text-white font-medium">Toyota Camry 2018</p>
+          </div>
+          <div>
+            <p class="text-gray-400">Гос. номер:</p>
+            <p class="text-white font-medium">1234 AB-7</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Repair Status -->
+      <div>
+        <h2 class="text-yellow-500 text-xl font-bold mb-4">Статус ремонта</h2>
+        <div class="space-y-4">
+          <!-- Status Steps -->
+          <div class="flex items-center gap-4">
+            <div class="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-black" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div>
+              <p class="font-medium">Диагностика завершена</p>
+              <p class="text-gray-400 text-sm">15.05.2023</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <div class="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-black" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div>
+              <p class="font-medium">Заказаны запчасти</p>
+              <p class="text-gray-400 text-sm">16.05.2023</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <div class="w-8 h-8 rounded-full bg-gray-700 border-2 border-yellow-500 flex items-center justify-center">
+              <span class="text-yellow-500 font-bold">3</span>
+            </div>
+            <div>
+              <p class="font-medium">Ремонт двигателя</p>
+              <p class="text-gray-400 text-sm">В процессе</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <div class="w-8 h-8 rounded-full bg-gray-700 border-2 border-gray-500 flex items-center justify-center">
+              <span class="text-gray-500 font-bold">4</span>
+            </div>
+            <div>
+              <p class="font-medium text-gray-500">Покраска</p>
+              <p class="text-gray-500 text-sm">Ожидает</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Current Status -->
+      <div class="mt-8 p-4 bg-yellow-500 bg-opacity-10 border-l-4 border-yellow-500">
+        <h3 class="text-yellow-500 font-bold mb-2">Текущий статус</h3>
+        <p>Ваш автомобиль находится на этапе ремонта двигателя. Ориентировочная дата завершения - 25.05.2023.</p>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-8 py-6 border-t border-gray-800">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div>
+          <p class="text-gray-400">Контакты:</p>
+          <p><a href="tel:+375333930680" class="text-yellow-500 hover:underline">+375 33-393-06-80</a></p>
+        </div>
+        <div>
+          <p class="text-gray-400">Email:</p>
+          <p><a href="mailto:lopatinnd2006@gmail.com" class="text-yellow-500 hover:underline">lopatinnd2006@gmail.com</a></p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const avatarInput = document.getElementById('avatarInput');
+      const avatarPreview = document.getElementById('avatarPreview');
+
+      // Handle avatar upload
+      avatarInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            avatarPreview.style.backgroundImage = `url(${event.target.result})`;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // Click on preview triggers file input
+      avatarPreview.addEventListener('click', function() {
+        avatarInput.click();
+      });
+    });
+  </script>
+</body>
+</html>
