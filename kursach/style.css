@@ -111,10 +111,9 @@ body::before {
   margin-bottom: 350px;
 }
 #advertizment{
-  position: absolute;
+  position: relative;
   color: #ddd;
   bottom: 300px;
-  left: 480px;
 }
 #servicetext{
   position:relative;
