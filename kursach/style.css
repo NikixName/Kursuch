@@ -107,7 +107,7 @@ body::before {
 }  
 #baner{
   position: relative;
-  margin-top: 200px;
+  margin-top: 150px;
   margin-bottom: 350px;
 }
 #advertizment{
@@ -116,13 +116,13 @@ body::before {
   bottom: 300px;
 }
 #servicetext{
-  font-size: 24px;
   position:relative;
-  top: 20px;
+  bottom: 250px;
 }
 .btntable{
   position: absolute;
-  bottom: 890px;
+  bottom: 150px;
+  right: 500px;
   background-color: #ffd500;
   color: #000000;
   padding: 10px 200px;
@@ -134,4 +134,29 @@ body::before {
   z-index: 10;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
-
+#registrationtext{
+  font-size: 16px;
+  text-align: justify;
+  position: relative;
+  padding-left: 0px;
+  padding-right: 220px;
+  margin-top: 10px;
+  line-height: 1.5;
+  color: #ddd;
+}
+#signinbottom{
+  font-size: 13px;
+  position: absolute;
+  left: 670px;
+  bottom: 350px;
+  background-color: #ffd500;
+  color: #000000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
