@@ -1,0 +1,39 @@
+@model IEnumerable<Kurs_HTML.Models.OrderStatus>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Справочник статусов заказов";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Добавить статус</a>
+</p>
+
+@if (TempData.ContainsKey("Error"))
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 50px;">#</th>
+            <th>Название</th>
+            <th style="width: 150px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var s in Model)
+    {
+        <tr>
+            <td>@s.OrderStatusId</td>
+            <td>@s.Name</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@s.OrderStatusId" class="btn btn-sm btn-outline-secondary">✎</a>
+                <a asp-action="Delete" asp-route-id="@s.OrderStatusId" class="btn btn-sm btn-outline-danger ms-2">🗑</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

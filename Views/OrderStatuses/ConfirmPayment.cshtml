@@ -1,0 +1,46 @@
+@model Kurs_HTML.Models.PaymentViewModel
+
+<form asp-action="ConfirmPayment" method="post">
+    <input type="hidden" asp-for="OrderId" />
+
+    <p>Услуга: <strong>@Model.ServiceName</strong></p>
+    <p>Сумма к оплате: <strong>@Model.Amount руб.</strong></p>
+
+    <div class="form-group">
+        <label asp-for="PayerName"></label>
+        <input asp-for="PayerName" class="form-control" />
+        <span asp-validation-for="PayerName" class="text-danger"></span>
+    </div>
+
+    <label>Номер карты</label>
+    <div class="form-group d-flex gap-2">
+        <input asp-for="CardPart1" maxlength="4" class="form-control" />
+        <input asp-for="CardPart2" maxlength="4" class="form-control" />
+        <input asp-for="CardPart3" maxlength="4" class="form-control" />
+        <input asp-for="CardPart4" maxlength="4" class="form-control" />
+    </div>
+    <div>
+        <span asp-validation-for="CardPart1" class="text-danger"></span>
+        <span asp-validation-for="CardPart2" class="text-danger"></span>
+        <span asp-validation-for="CardPart3" class="text-danger"></span>
+        <span asp-validation-for="CardPart4" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ExpiryDate"></label>
+        <input asp-for="ExpiryDate" class="form-control" placeholder="MM/YY" />
+        <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CVV"></label>
+        <input asp-for="CVV" maxlength="3" class="form-control" />
+        <span asp-validation-for="CVV" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Оплатить</button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

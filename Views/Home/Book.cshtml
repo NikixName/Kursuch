@@ -1,0 +1,46 @@
+@model Kurs_HTML.Models.BookViewModel
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Запись на услугу";
+}
+
+<h2>Запись на услугу: @Model.ServiceName</h2>
+
+<form asp-action="Book" method="post" class="mb-4">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="ServiceId" />
+
+    @* Скрытые поля: клиент не выбирает статус и исполнителя *@
+    <input type="hidden" name="SelectedStatusId" value="1" />
+    <input type="hidden" name="PerformerRoleAndId" value="" />
+
+    <!-- Дата и время -->
+    <div class="mb-3">
+        <label asp-for="SelectedDateTime" class="form-label">Дата и время</label>
+        <input asp-for="SelectedDateTime" type="datetime-local" class="form-control" />
+        <span asp-validation-for="SelectedDateTime" class="text-danger"></span>
+    </div>
+    @Html.ValidationMessageFor(model => model.SelectedDateTime, "", new { @class = "text-danger" })
+
+    <button type="submit" class="btn btn-primary">Записаться</button>
+    <a asp-action="Table" class="btn btn-secondary ms-2">Назад к услугам</a>
+</form>
+
+<hr />
+
+<h5>Занятые слоты для этой услуги:</h5>
+@if (!Model.BusySlots.Any())
+{
+    <p>На данный момент нет записей.</p>
+}
+else
+{
+    <ul>
+    @foreach (var dt in Model.BusySlots)
+    {
+        <li>@dt.ToString("dd.MM.yyyy HH:mm")</li>
+    }
+    </ul>
+}

@@ -1,0 +1,50 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Курсовая – альтернативная главная</title>
+  <link rel="stylesheet" href="~/css/style1.css" />
+</head>
+<body>
+  <header class="header-container">
+    <img id="logo" src="~/images/logo.png" alt="Логотип" />
+    <div class="header-text">
+      <div class="high">Автомастерская</div>
+      <div id="names">Clean Motors</div>
+    </div>
+  </header>
+  
+  <main>
+    <center>
+      <img id="car" src="~/images/car2.png" width="500" alt="Автомобиль" />
+      <h2 id="h2">Ваш автомобиль заслуживает лучшего ухода!</h2>
+      <p class="midtext">
+        Представьте: вы едете по дороге, и вдруг… странный стук, загорается «Check Engine», или просто машина ведёт себя не так, как раньше. Знакомо? 
+        В такие моменты важно, чтобы ваш автомобиль попал в надёжные руки профессионалов, которые не просто «подлатают» проблему, а вернут ему былую надёжность и комфорт.
+        «АвтоПрофи» – это не просто сервис, а команда экспертов, для которых автомобили – больше чем работа. 
+        Мы понимаем, как важен для вас каждый километр пути, и делаем всё, чтобы ваше авто служило вам долго и безотказно.
+      </p>
+      <p id="servicetext">Запишитесь на услуги нашей автомастерской:</p>
+      <a asp-action="Table" class="btntable">Записаться</a>
+      <a asp-action="Profile" class="btn">Личный кабинет</a>
+      <img id="baner" src="~/images/banner.jpg" width="500" alt="Рекламный баннер" />
+      <p id="advertizment">ВНИМАНИЕ: Замените шины и получите бесплатную мойку машины!!!</p>
+    </center>
+  </main>
+  
+  <footer class="down">
+    <div>
+      Контактные номера:
+      <p><a href="tel:+375333930680">+375 33-393-06-80</a></p>
+    </div>
+    <div id="gmail">
+      Почта gmail:
+      <p><a href="mailto:lopatinnd2006@gmail.com">lopatinnd2006@gmail.com</a></p>
+    </div>
+  </footer>
+</body>
+</html>

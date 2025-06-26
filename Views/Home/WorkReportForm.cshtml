@@ -1,0 +1,20 @@
+@model Kurs_HTML.Models.WorkReportViewModel
+
+@{
+    ViewData["Title"] = "Акт выполненных работ";
+}
+
+<h2>Акт выполненных работ</h2>
+
+<form asp-action="SubmitWorkReport" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="OrderId" />
+    
+    <div class="form-group">
+        <label asp-for="Comments" class="form-label"></label>
+        <textarea asp-for="Comments" class="form-control"></textarea>
+        <span asp-validation-for="Comments" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Сохранить акт</button>
+</form>

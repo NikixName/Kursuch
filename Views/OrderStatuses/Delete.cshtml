@@ -1,0 +1,16 @@
+@model Kurs_HTML.Models.OrderStatus
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Удалить статус заказа";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Вы уверены, что хотите удалить статус «<strong>@Model.Name</strong>»?</p>
+
+<form asp-action="DeleteConfirmed" method="post" class="mt-4">
+    @Html.AntiForgeryToken()
+    <input asp-for="OrderStatusId" type="hidden" />
+    <button type="submit" class="btn btn-danger">Да, удалить</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Отмена</a>
+</form>

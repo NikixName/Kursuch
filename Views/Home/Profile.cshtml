@@ -1,0 +1,200 @@
+@model Kurs_HTML.Models.ProfileViewModel
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Профиль";
+    var role = HttpContextAccessor.HttpContext?.Session.GetString("UserRole");
+}
+
+<div class="bg-black text-white py-4">
+  <div class="container">
+
+    <h2 class="mb-4">Профиль: @Model.FirstName @Model.LastName <small class="text-muted">(@Model.Role)</small></h2>
+
+    <form asp-action="Profile" method="post" enctype="multipart/form-data" class="mb-5">
+      @Html.AntiForgeryToken()
+
+      <div class="row mb-3">
+        <div class="col-md-2">
+          <img src="@(Model.AvatarPath ?? "/images/default-avatar.png")"
+               class="rounded-circle img-fluid border border-secondary" />
+        </div>
+        <div class="col-md-10 align-self-center">
+          <label class="btn btn-outline-secondary">
+            Сменить аватар
+            <input asp-for="AvatarFile" type="file" accept="image/*" class="d-none" />
+          </label>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Имя</label>
+          <input asp-for="FirstName" class="form-control" />
+          <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Фамилия</label>
+          <input asp-for="LastName" class="form-control" />
+          <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Email</label>
+          <input asp-for="Email" class="form-control" readonly />
+        </div>
+      </div>
+
+      <div class="row g-3 mt-3">
+        <div class="col-md-4">
+          <label class="form-label">Телефон</label>
+          <input asp-for="Phone" class="form-control" />
+          <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Автомобиль</label>
+          <input asp-for="Car" class="form-control" />
+          <span asp-validation-for="Car" class="text-danger"></span>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">VIN</label>
+          <input asp-for="License" class="form-control" />
+          <span asp-validation-for="License" class="text-danger"></span>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <button type="submit" class="btn btn-warning">Сохранить изменения</button>
+      </div>
+    </form>
+
+    <h3 class="mt-5">Ваши заказы</h3>
+
+    @if (!Model.Orders.Any())
+    {
+      <p class="text-muted">У вас пока нет заказов.</p>
+    }
+    else
+    {
+      <table class="table table-bordered table-striped table-dark align-middle">
+        <thead>
+          <tr>
+            <th style="width:40px;">#</th>
+            <th>Услуга</th>
+            <th style="width:160px;">Создан</th>
+            <th style="width:160px;">Запланировано</th>
+            <th>Исполнитель</th>
+            <th style="width:120px;">Статус</th>
+            <th style="width:220px;">Действия</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (int i = 0; i < Model.Orders.Count; i++)
+          {
+            var o = Model.Orders[i];
+            <tr>
+              <td>@(i+1)</td>
+              <td>@o.ServiceName</td>
+              <td>@o.DateCreated.ToString("dd.MM.yyyy HH:mm")</td>
+              <td>@o.DateTime.ToString("dd.MM.yyyy HH:mm")</td>
+              <td>@o.PerformerName</td>
+              <td>@o.Name</td>
+              <td>
+              @* Клиент может отменить заказ, если он не выполнен и не оплачен *@
+              @if (role == "Client" && o.Name != "Выполнен" && !o.IsPaid)
+              {
+                  <form asp-action="CancelOrder" method="post" class="d-inline">
+                      @Html.AntiForgeryToken()
+                      <input type="hidden" name="orderId" value="@o.OrderId" />
+                      <button type="submit" class="btn btn-sm btn-danger"
+                              onclick="return confirm('Отменить этот заказ?');">
+                          Отменить
+                      </button>
+                  </form>
+              }
+
+              @* Клиент может оплатить заказ, если он выполнен, но ещё не оплачен *@
+              @if (role == "Client" && o.Name == "Выполнен" && !o.IsPaid)
+              { 
+
+                  <form asp-action="ConfirmPayment" asp-controller="OrderStatuses" method="get">
+                      <input type="hidden" name="orderId" value="@o.OrderId" />
+                      <button type="submit" class="btn btn-sm btn-success">Оплатить</button>
+                  </form>
+              }
+
+
+
+              @* Клиент может скачать чек, если заказ выполнен и оплачен *@
+              @if (role == "Client" && o.Name == "Выполнен" && o.IsPaid)
+              {
+                  @if (o.OrderId > 0) 
+                  {
+                      <form asp-controller="Home" asp-action="DownloadReceipt" method="get">
+                          <input type="hidden" name="orderId" value="@o.OrderId" />
+                          <button type="submit" class="btn btn-sm btn-warning">Скачать чек</button>
+                      </form>
+                  }
+
+
+              }
+
+
+
+                @* Механик/автомойщик может принять или завершить заказ, если он ещё не выполнен *@
+                @if ((role == "Mechanic" || role == "CarWasher") && o.Name != "Выполнен")
+                {
+                    if (o.PerformerName == "(не назначен)")
+                    {
+                        <form asp-action="AcceptOrder" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="orderId" value="@o.OrderId" />
+                            <button type="submit" class="btn btn-sm btn-info"
+                                    onclick="return confirm('Принять этот заказ?');">
+                                Принять
+                            </button>
+                        </form>
+                    }
+                    else if (o.PerformerName == "Вы")
+                    {
+                        <form asp-action="WorkReportForm" asp-controller="Home" method="get" class="d-inline">
+                            <input type="hidden" name="orderId" value="@o.OrderId" />
+                            <button type="submit" class="btn btn-sm btn-success"
+                                    onclick="return confirm('Перейти к заполнению акта?');">
+                                Завершить
+                            </button>
+                        </form>
+                    }
+                }
+
+
+
+
+
+                @* Админ может редактировать/удалять через свой контроллер *@
+                @if (role == "Administrator")
+                {
+                  <a asp-controller="Admin" asp-action="EditOrder" asp-route-id="@o.OrderId"
+                     class="btn btn-sm btn-primary">Изменить</a>
+                  <form asp-controller="Admin" asp-action="DeleteOrder" method="post" class="d-inline ms-1">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="orderId" value="@o.OrderId" />
+                    <button type="submit" class="btn btn-sm btn-danger"
+                            onclick="return confirm('Удалить этот заказ?');">
+                      Удалить
+                    </button>
+                  </form>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+</div>
+
+@section Scripts {
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+}

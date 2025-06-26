@@ -1,0 +1,41 @@
+@model List<Kurs_HTML.Models.AdminCompletedOrderViewModel>
+
+
+@{
+    ViewData["Title"] = "Выполненные заказы";
+}
+
+<h2>Выполненные заказы</h2>
+
+@if (!Model.Any())
+{
+    <p>Выполненных заказов пока нет.</p>
+}
+else
+{
+    <table class="table table-bordered table-striped table-dark">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Услуга</th>
+                <th>Исполнитель</th>
+                <th>Дата выполнения</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@(i+1)</td>
+                    <td>@Model[i].ServiceName</td>
+                    <td>@Model[i].PerformerName</td>
+                    <td>@Model[i].CompletedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <form asp-action="ExportMonthlyIncomeReport" method="post">
+        <button type="submit" class="btn btn-success">Скачать Excel-отчёт</button>
+    </form>
+}

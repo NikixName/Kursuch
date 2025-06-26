@@ -1,0 +1,44 @@
+@model Kurs_HTML.Models.EditOrderViewModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Редактировать заказ";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="EditOrder" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="OrderId" />
+
+    <div class="mb-3">
+        <label class="form-label">Услуга</label>
+        <input asp-for="ServiceName" class="form-control" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CurrentDateTime" class="form-label"></label>
+        <input asp-for="CurrentDateTime" type="datetime-local" class="form-control" />
+        <span asp-validation-for="CurrentDateTime" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="SelectedStatusId" class="form-label">Статус заказа</label>
+        <select asp-for="SelectedStatusId" class="form-select"
+            asp-items="@(new SelectList(Model.AllStatuses, "OrderStatusId", "Name"))">
+            <option value="">-- выберите статус --</option>
+        </select>
+        <span asp-validation-for="SelectedStatusId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PerformerRoleAndId" class="form-label">Исполнитель</label>
+        <select asp-for="PerformerRoleAndId" class="form-select"
+            asp-items="@(new SelectList(Model.AllPerformers, "Value", "Text"))">
+            <option value="">-- выберите исполнителя --</option>
+        </select>
+        <span asp-validation-for="PerformerRoleAndId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a asp-action="Orders" class="btn btn-secondary ms-2">Отмена</a>
+</form>

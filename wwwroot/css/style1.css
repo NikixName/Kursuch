@@ -1,0 +1,136 @@
+body {
+  background: url('/images/background1.jpg') center/cover no-repeat fixed;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #f2e8e8;
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 200px;
+  right: 200px;
+  bottom: 20px;
+  background: rgba(0, 0, 0, 0.944);
+  z-index: -1;
+  border-radius: 10px;
+}
+.btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #ffd500;
+  color: #000000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.header-container {
+  position: absolute;
+  top: 10px;
+  left: -10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px;
+  border-radius: 5px;
+}
+
+#logo {
+  width: 80px;
+  height: auto;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+#h2 {
+  position: relative;
+  margin-top: 100px;
+}
+
+#names {
+  font-size: 14px;
+  margin: 0;
+  color: #ddd;
+}
+
+#car {
+  position: relative;
+  margin-top: -150px;
+  margin-bottom: -200px;
+  z-index: 1;
+}
+#entrence{
+  position: absolute;
+  left: 220px;
+  color: #ffd500;
+}
+.window{
+  text-align: justify;
+  padding-left: 550px;
+  padding-right: 300px;
+  padding-top: 200px;
+  font-size: 36px; 
+  color: #ffd500;
+}
+.midtext {
+  font-size: 16px;
+  text-align: justify;
+  padding-left: 220px;
+  padding-right: 220px;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+.down{
+    background: #ff9100;
+    color: #f3f3f3;
+    font-family: Arial, sans-serif;
+    padding: 20px 220px;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 440px);
+}  
+#baner{
+  position: relative;
+  margin-top: 200px;
+  margin-bottom: 350px;
+}
+#advertizment{
+  position: relative;
+  color: #ddd;
+  bottom: 300px;
+}
+#servicetext{
+  font-size: 24px;
+  position:relative;
+  top: 20px;
+}
+.btntable{
+  position: absolute;
+  bottom: 890px;
+  background-color: #ffd500;
+  color: #000000;
+  padding: 10px 200px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}

@@ -1,0 +1,49 @@
+@model List<Kurs_HTML.Models.Order>
+
+@{
+    ViewBag.Title = "Мои заказы";
+}
+
+<h2>Мои заказы</h2>
+
+@if (!Model.Any())
+{
+    <p>У вас нет заказов.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Услуга</th>
+                <th>Цена</th>
+                <th>Оплачен</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Service.Name</td>
+                <td>@order.Service.BasePrice руб.</td>
+                <td>@(order.IsPaid ? "Да" : "Нет")</td>
+                <td>
+                    @if (order.IsPaid && !order.IsReceiptDownloaded)
+                    {
+                        <a asp-controller="Home" asp-action="DownloadReceipt" asp-route-orderId="@order.OrderId" class="btn btn-success">Скачать чек</a>
+                    }
+                    else if (!order.IsPaid)
+                    {
+                        <a asp-controller="OrderStatuses" asp-action="ChoosePaymentMethod" asp-route-orderId="@order.OrderId" class="btn btn-primary">Оплатить</a>
+                    }
+                    else
+                    {
+                        <span>Чек получен</span>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
