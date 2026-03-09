@@ -20,7 +20,6 @@ builder.Services.AddSession(opts =>
 });
 
 var app = builder.Build();
-
 app.UseStaticFiles();
 
 app.UseSession();

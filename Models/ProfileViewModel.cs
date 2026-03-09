@@ -15,7 +15,6 @@ namespace Kurs_HTML.Models
 
     public class ProfileViewModel
     {
-        // Личные данные (имя, почта, телефон и т. д.)
         [Required]
         [Display(Name = "Имя")]
         public string FirstName { get; set; } = null!;
@@ -34,14 +33,11 @@ namespace Kurs_HTML.Models
         public string Car { get; set; } = string.Empty;
         public string License { get; set; } = string.Empty;
 
-        // Аватар
         public IFormFile? AvatarFile { get; set; }
         public string? AvatarPath { get; set; }
 
-        // Роль текущего пользователя
         public string Role { get; set; } = null!;
 
-        // КОМПОНЕНТ: Список заказов, выбранных по роли
         public List<OrderViewModel> Orders { get; set; } = new();
     }
 }

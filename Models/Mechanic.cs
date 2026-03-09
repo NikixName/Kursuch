@@ -1,4 +1,3 @@
-// Models/Mechanic.cs
 using System.ComponentModel.DataAnnotations;
 
 namespace Kurs_HTML.Models
@@ -19,7 +18,6 @@ namespace Kurs_HTML.Models
         [Required, DataType(DataType.Password), StringLength(128)]
         public string Password  { get; set; } = string.Empty;
 
-        // Новые поля:
         [StringLength(20)]
         public string? Phone    { get; set; }
 

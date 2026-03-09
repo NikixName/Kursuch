@@ -19,13 +19,13 @@
 <body class="bg-gray-900 text-gray-200">
 
   <header class="flex justify-between items-center p-4">
-    <!-- Кнопка назад на Index1 -->
+
     <a asp-controller="Home" asp-action="Index1"
        class="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded">
       ← На главную
     </a>
 
-    @* Для администратора — ссылка на управление услугами *@
+
     @if (role == "Administrator")
     {
       <a asp-controller="Services" asp-action="Index"
@@ -84,7 +84,7 @@
             }
           </td>
           <td class="text-center py-3 px-4 space-x-2">
-            @* Запись доступна только клиентам *@
+
             @if (role == "Client")
             {
               @if (s.Available)
@@ -105,7 +105,7 @@
               }
             }
 
-            @* CRUD для администратора *@
+
             @if (role == "Administrator")
             {
               <a asp-controller="Services" asp-action="Edit" asp-route-id="@s.ServiceId"

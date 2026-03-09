@@ -15,11 +15,9 @@ namespace Kurs_HTML.Models
         [DataType(DataType.DateTime)]
         public DateTime CurrentDateTime { get; set; }
 
-        // Статусы
         public List<OrderStatus> AllStatuses { get; set; } = new();
         public int SelectedStatusId { get; set; }
 
-        // Исполнитель
         public List<AssignedPersonItem> AllPerformers { get; set; } = new();
         [Display(Name = "Исполнитель")]
         public string? PerformerRoleAndId { get; set; }

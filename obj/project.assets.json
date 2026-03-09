@@ -5246,23 +5246,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\user\\.nuget\\packages\\": {},
+    "C:\\Users\\lopat\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\source\\repos\\Kurs_HTML\\Kurs_HTML\\Kurs_HTML.csproj",
+      "projectUniqueName": "E:\\programming\\курсач\\kursach\\Kurs_HTML\\Kurs_HTML\\Kurs_HTML.csproj",
       "projectName": "Kurs_HTML",
-      "projectPath": "C:\\Users\\user\\source\\repos\\Kurs_HTML\\Kurs_HTML\\Kurs_HTML.csproj",
-      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\source\\repos\\Kurs_HTML\\Kurs_HTML\\obj\\",
+      "projectPath": "E:\\programming\\курсач\\kursach\\Kurs_HTML\\Kurs_HTML\\Kurs_HTML.csproj",
+      "packagesPath": "C:\\Users\\lopat\\.nuget\\packages\\",
+      "outputPath": "E:\\programming\\курсач\\kursach\\Kurs_HTML\\Kurs_HTML\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\lopat\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5271,7 +5271,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "d:\\prog": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -5289,7 +5288,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -5341,7 +5341,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.408/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.311/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

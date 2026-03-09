@@ -55,7 +55,6 @@ namespace Kurs_HTML.Controllers
                 Category = s.Category,
                 BasePrice = s.BasePrice,
                 Duration = s.Duration,
-                // считаем «Available» как отсутствие будущих заказов на этот сервис в ближайшие 24 часа
                 Available = !_db.Orders.Any(o =>
                                  o.ServiceId == s.ServiceId
                                  && o.DateTime > now
@@ -184,7 +183,6 @@ namespace Kurs_HTML.Controllers
 
             var model = new ProfileViewModel();
 
-            // Заполняем общие поля профиля
             switch (userRole)
             {
                 case "Client":
@@ -203,7 +201,6 @@ namespace Kurs_HTML.Controllers
                     return RedirectToAction("SignIn");
             }
 
-            // Ветвление по роли для загрузки заказов
             List<OrderViewModel> orders = new();
 
             if (userRole == "Client")
@@ -304,7 +301,6 @@ namespace Kurs_HTML.Controllers
             if (userId == null || string.IsNullOrEmpty(userRole))
                 return RedirectToAction("SignIn");
 
-            // Берём нужную сущность (Client/Administrator/Mechanic/CarWasher)
             dynamic userEntity = userRole switch
             {
                 "Client" => _db.Clients.Find(userId.Value),
@@ -316,7 +312,6 @@ namespace Kurs_HTML.Controllers
             if (userEntity == null)
                 return RedirectToAction("SignIn");
 
-            // Обработка загрузки нового аватара
             if (m.AvatarFile?.Length > 0)
             {
                 var fileName = $"{userRole}_{userId}_{Path.GetFileName(m.AvatarFile.FileName)}";
@@ -326,7 +321,6 @@ namespace Kurs_HTML.Controllers
                 userEntity.AvatarPath = $"/images/avatars/{fileName}";
             }
 
-            // Остальные поля профиля
             userEntity.FirstName = m.FirstName;
             userEntity.LastName = m.LastName;
             userEntity.Phone = m.Phone;
@@ -497,7 +491,6 @@ namespace Kurs_HTML.Controllers
         [HttpGet]
         public IActionResult DownloadReceipt(int orderId)
         {
-            Console.WriteLine($"▶️ Пришёл orderId: {orderId}");
 
             if (orderId <= 0)
             {
@@ -514,21 +507,8 @@ namespace Kurs_HTML.Controllers
                         .ThenInclude(o => o.WorkReport)
                     .FirstOrDefault(r => r.OrderId == orderId);
 
-                if (receipt == null)
-                {
-                    Console.WriteLine($"❌ Чек по заказу {orderId} не найден.");
-                    return NotFound($"Чек по заказу {orderId} не найден.");
-                }
-
                 var order = receipt.Order;
 
-                if (order == null || order.Service == null)
-                {
-                    Console.WriteLine($"❌ Некорректные данные заказа: {orderId}");
-                    return NotFound("Данные заказа неполны.");
-                }
-
-                // Обновляем статус
                 order.IsPaid = true;
                 order.IsReceiptDownloaded = true;
                 order.IsDeleted = true;
@@ -549,7 +529,6 @@ namespace Kurs_HTML.Controllers
                     body.Append(CreateParagraph($"Услуга: {order.Service.Name}"));
                     body.Append(CreateParagraph($"Сумма: {receipt.Amount:F2} руб."));
 
-                    // Только имя плательщика
                     if (!string.IsNullOrWhiteSpace(receipt.PayerName))
                     {
                         body.Append(CreateParagraph($"Плательщик: {receipt.PayerName}"));
@@ -658,7 +637,6 @@ namespace Kurs_HTML.Controllers
             var clientId = HttpContext.Session.GetInt32("UserId");
             if (clientId == null)
             {
-                Console.WriteLine("‼️ НЕАВТОРИЗОВАННЫЙ ПОЛЬЗОВАТЕЛЬ, переадресация на SignIn");
                 return RedirectToAction("SignIn");
             }
 
@@ -668,7 +646,7 @@ namespace Kurs_HTML.Controllers
 
             if (_db.Orders.Any(o =>
                 o.ServiceId == vm.ServiceId &&
-                o.DateTime == vm.SelectedDateTime)) // можно заменить на DateDiff
+                o.DateTime == vm.SelectedDateTime)) 
             {
                 ModelState.AddModelError(nameof(vm.SelectedDateTime), "Этот слот уже занят.");
             }

@@ -6,8 +6,8 @@ public class OrderViewModel
     public string ServiceName { get; set; } = null!;
     public DateTime DateCreated { get; set; }
     public DateTime DateTime { get; set; }
-    public string Name { get; set; } = null!;      // Статус
-    public string PerformerName { get; set; } = null!;  // Имя механика/мойщика
+    public string Name { get; set; } = null!;
+    public string PerformerName { get; set; } = null!;
 
     public bool IsPaid { get; set; }
 
