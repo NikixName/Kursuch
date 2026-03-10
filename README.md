@@ -1,5 +1,3 @@
-Вот отформатированный текст с абзацами вместо столбцов:
----
 # Clean Motors
 Clean Motors is a comprehensive web-based management system designed specifically for auto repair shops. The application streamlines the entire workflow from customer registration to service completion, providing role-based access for all stakeholders involved in the vehicle maintenance process.
 ## Features
