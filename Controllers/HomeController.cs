@@ -27,7 +27,6 @@ namespace Kurs_HTML.Controllers
                 Directory.CreateDirectory(_avatarFolder);
         }
 
-        // 1) Главная: GET / или /Home/Index
         [HttpGet("")]
         [HttpGet("Index")]
         public IActionResult Index()
@@ -35,14 +34,12 @@ namespace Kurs_HTML.Controllers
             return View();
         }
 
-        // 2) Альтернативная главная после входа: GET /Home/Index1
         [HttpGet("Index1")]
         public IActionResult Index1()
         {
             return View();
         }
 
-        // 3) Каталог услуг: GET /Home/Table?serviceId=...
         [HttpGet("Table")]
         public IActionResult Table(int? serviceId)
         {
@@ -78,14 +75,12 @@ namespace Kurs_HTML.Controllers
             return View(vm);
         }
 
-        // 4) Вход: GET /Home/SignIn
         [HttpGet("SignIn")]
         public IActionResult SignIn()
         {
             return View(new SignInViewModel());
         }
 
-        // 5) Вход: POST /Home/SignIn
         [HttpPost("SignIn"), ValidateAntiForgeryToken]
         public IActionResult SignIn(SignInViewModel m)
         {
@@ -99,7 +94,6 @@ namespace Kurs_HTML.Controllers
             return View(m);
         }
 
-        // 6) Выход: POST /Home/Logout
         [HttpPost("Logout"), ValidateAntiForgeryToken]
         public IActionResult Logout()
         {
@@ -107,14 +101,12 @@ namespace Kurs_HTML.Controllers
             return RedirectToAction("Index");
         }
 
-        // 7) Регистрация: GET /Home/Register
         [HttpGet("Register")]
         public IActionResult Register()
         {
             return View(new RegisterViewModel());
         }
 
-        // 8) Регистрация: POST /Home/Register
         [HttpPost("Register"), ValidateAntiForgeryToken]
         public IActionResult Register(RegisterViewModel m)
         {
@@ -155,11 +147,9 @@ namespace Kurs_HTML.Controllers
                 return Forbid();
             if (userRole == "CarWasher" && order.CarWasherId != userId.Value)
                 return Forbid();
-            // Админ может менять статус у любого заказа, поэтому его проверяем отдельно
             if (userRole != "Administrator" && userRole != "Mechanic" && userRole != "CarWasher")
                 return Forbid();
 
-            // Проверяем, что переданный статус существует
             if (!_db.OrderStatuses.Any(st => st.OrderStatusId == newStatusId))
             {
                 ModelState.AddModelError("", "Некорректный статус.");
@@ -172,7 +162,6 @@ namespace Kurs_HTML.Controllers
         }
 
 
-        // 9) Профиль: GET /Home/Profile
         [HttpGet("Profile")]
         public IActionResult Profile()
         {
@@ -292,7 +281,6 @@ namespace Kurs_HTML.Controllers
 
 
 
-        // 10) Сохранение профиля: POST /Home/Profile
         [HttpPost("Profile"), ValidateAntiForgeryToken]
         public async Task<IActionResult> Profile(ProfileViewModel m)
         {
@@ -427,12 +415,10 @@ namespace Kurs_HTML.Controllers
                 });
             }
 
-            // Меняем статус
             var completedStatus = _db.OrderStatuses.FirstOrDefault(s => s.Name == "Выполнен");
             if (completedStatus != null)
                 order.OrderStatusId = completedStatus.OrderStatusId;
 
-            // Добавляем в CompletedOrders
             var performerName = order.Mechanic != null
                 ? $"{order.Mechanic.FirstName} {order.Mechanic.LastName}"
                 : order.CarWasher != null
@@ -564,12 +550,6 @@ namespace Kurs_HTML.Controllers
                 return StatusCode(500, "Внутренняя ошибка сервера при создании чека.");
             }
         }
-
-
-
-
-
-
 
         private static Paragraph CreateParagraph(string text, bool bold = false, int size = 24, bool center = false)
         {
