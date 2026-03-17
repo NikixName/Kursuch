@@ -16,11 +16,6 @@ namespace Kurs_HTML.Controllers
         {
             _db = db;
         }
-
-
-
-        // GET: /Admin/Orders
-        // Показываем все заказы для администратора
         [HttpGet("Orders")]
         public IActionResult Orders()
         {
@@ -47,8 +42,6 @@ namespace Kurs_HTML.Controllers
 
             return View(orders);
         }
-
-
         // GET: /Admin/EditOrder/5
         [HttpGet("EditOrder")]
         public IActionResult EditOrder(int id)
@@ -63,10 +56,8 @@ namespace Kurs_HTML.Controllers
             if (o == null)
                 return NotFound();
 
-            // Собираем VM для редактирования:
             var allStatuses = _db.OrderStatuses.OrderBy(st => st.OrderStatusId).ToList();
 
-            // Список исполнителей (как и раньше)
             var mechList = _db.Mechanics.Select(m => new AssignedPersonItem
             {
                 Value = $"Mech_{m.Id}",
@@ -116,7 +107,6 @@ namespace Kurs_HTML.Controllers
             using var workbook = new XLWorkbook();
             var ws = workbook.Worksheets.Add("Доход за месяц");
 
-            // Заголовок отчета
             string monthName = now.ToString("MMMM yyyy", new System.Globalization.CultureInfo("ru-RU"));
             ws.Cell(1, 1).Value = $"Отчет о доходах за {monthName}";
             ws.Range(1, 1, 1, 3).Merge().Style
@@ -125,7 +115,6 @@ namespace Kurs_HTML.Controllers
                 .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
                 .Fill.SetBackgroundColor(XLColor.LightBlue);
 
-            // Шапка таблицы
             ws.Cell(2, 1).Value = "Услуга";
             ws.Cell(2, 2).Value = "Кол-во выполнений";
             ws.Cell(2, 3).Value = "Доход (BYN)";
@@ -137,7 +126,6 @@ namespace Kurs_HTML.Controllers
                 .Border.OutsideBorder = XLBorderStyleValues.Thin;
             headerRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
 
-            // Данные
             for (int i = 0; i < reportData.Count; i++)
             {
                 ws.Cell(i + 3, 1).Value = reportData[i].ServiceName;
@@ -145,7 +133,6 @@ namespace Kurs_HTML.Controllers
                 ws.Cell(i + 3, 3).Value = reportData[i].Total;
             }
 
-            // Общий доход
             int totalRow = reportData.Count + 4;
             ws.Cell(totalRow, 2).Value = "Общий доход:";
             ws.Cell(totalRow, 3).Value = grandTotal;
@@ -173,7 +160,6 @@ namespace Kurs_HTML.Controllers
         {
             if (!ModelState.IsValid)
             {
-                // заново загрузка списков
                 vm.AllStatuses = _db.OrderStatuses.OrderBy(st => st.OrderStatusId).ToList();
                 var mechList = _db.Mechanics.Select(m => new AssignedPersonItem
                 {
@@ -195,7 +181,6 @@ namespace Kurs_HTML.Controllers
             o.DateTime     = vm.CurrentDateTime;
             o.OrderStatusId = vm.SelectedStatusId;
 
-            // Разбираем исполнителя:
             int? mechId = null, washId = null;
             if (!string.IsNullOrEmpty(vm.PerformerRoleAndId))
             {
@@ -270,8 +255,6 @@ namespace Kurs_HTML.Controllers
         [HttpGet("ExportCompletedToExcel")]
         public IActionResult ExportCompletedToExcel()
         {
-            // С помощью пакета ClosedXML или EPPlus формируем EXCEL
-            // Здесь приведён пример для ClosedXML
 
             var completedStatus = _db.OrderStatuses.FirstOrDefault(st => st.Name == "Completed");
             if (completedStatus == null)
@@ -301,7 +284,6 @@ namespace Kurs_HTML.Controllers
             using (var workbook = new ClosedXML.Excel.XLWorkbook())
             {
                 var worksheet = workbook.Worksheets.Add("ВыполненныеЗаказы");
-                // Заголовки
                 worksheet.Cell(1, 1).Value = "№ Заказа";
                 worksheet.Cell(1, 2).Value = "Клиент";
                 worksheet.Cell(1, 3).Value = "Услуга";
@@ -321,7 +303,6 @@ namespace Kurs_HTML.Controllers
                     row++;
                 }
 
-                // Настраиваем автоширину
                 worksheet.Columns().AdjustToContents();
 
                 using (var stream = new System.IO.MemoryStream())
