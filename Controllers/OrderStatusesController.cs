@@ -91,7 +91,7 @@ namespace Kurs_HTML.Controllers
                 Amount = order.Service.BasePrice
             };
 
-            return View(model); // возвращает страницу с формой оплаты
+            return View(model); 
         }
 
 
@@ -125,11 +125,6 @@ namespace Kurs_HTML.Controllers
     return RedirectToAction("Profile", "Home");
 }
 
-
-
-
-
-
         [HttpGet]
         public IActionResult MyOrders()
         {
@@ -143,10 +138,6 @@ namespace Kurs_HTML.Controllers
 
             return View(orders);
         }
-
-
-
-
 
         // GET: /OrderStatuses/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -200,12 +191,9 @@ namespace Kurs_HTML.Controllers
             var s = await _db.OrderStatuses.FindAsync(id);
             if (s != null)
             {
-                // Прежде чем удалять, нужно убедиться, что ни один заказ
-                // не ссылается на этот статус (FK Constraint).
                 bool used = await _db.Orders.AnyAsync(o => o.OrderStatusId == id);
                 if (used)
                 {
-                    // Запретим удалять статус, если он используется в каких-то заказах.
                     TempData["Error"] = "Нельзя удалить статус – он используется в существующих заказах.";
                     return RedirectToAction(nameof(Index));
                 }
